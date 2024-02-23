@@ -13,7 +13,7 @@
 * cpu, ram and disk are available
 * to install softwares we have used package manager apt
 
-## command
+* ## command
 
 ```
 sudo apt update
@@ -39,7 +39,7 @@ sudo systemctl status tomcat
 
 * __We were able to exactly the similar operations inside container as well.__.
 
-## Let me take a application
+*  ## Let me take a application
 
 * This is spring pet clinic application
 * Lets try to run this application on linux. 
@@ -81,13 +81,13 @@ CMD ["java", "-jar", "/springpetclinic.jar" ]
 
 ```   
 
-## Create docker image
+* ## Create docker image
 
 `docker image build -t spc:3.2.0 .`
 
 ![preview](images/33.png)
 
-## to create container
+* ## to create container
 
 ```
 docker container run -d -p 8081:8080 spc:3.2.0
@@ -95,7 +95,7 @@ docker container run -d -p 8082:8080 spc:3.2.0
 docker container run -d -p 8083:8080 spc:3.2.0
 
 ```
-This containers are isolated from each others
+* This containers are isolated from each others
 ![preview](images/32.png)
 
 ## Next Steps
