@@ -106,6 +106,12 @@
    * Passes the requests to containerd. This manages the lifecylcle of container
    * containerd forks a runc process which creates container. once the container is created the parent of the container will be docker shim  
 
+* __libc uses directly linux api to speak kernel directly__
+* __forks means creating new process runc__
+* __docker shim report all the msgs to containerd__
+* __exec means creating new process runc and its kill itself__
+* __Rejistry where is docker images__
+* __ContainerC --> images --> create --> Deamon --> ContainerD speak with runc__.
 * ![preview](images/47.png)
 
 * ## Creating our first docker container
