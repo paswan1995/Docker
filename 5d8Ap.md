@@ -130,4 +130,90 @@
 
 * Create a new linux vm and install docker in it
 
-![preview](images) 
+![preview](images/49.png)
+
+* whatever you want to kmow about commands you should use always `docker --help , docker image --help , docker container --help `
+   
+![preview](images/50.png)
+![preview](images/51.png)
+![preview](images/52.png)
+
+* ## pull the images from docker hub
+  
+* __image naming convention__
+    
+```
+[username]/[repository]:[<tag>]
+shaikkhajaibrahim/myspc:1.0.1
+username => shaikkhajaibrahim
+repository => what image => myspc
+tag => version => 1.0.1
+
+```
+
+* __default tag is latest__
+
+`nginx` 
+`nginx:latest`
+
+* __official images dont have username__
+  
+```
+nginx
+ubuntu
+alpine
+shaikkhajaibrahim/myspc
+
+```
+
+* __Lets pull the image nginx with tag `1.24`__
+* ![preview](images/53.png)
+* ![preview](images/54.png)
+
+* __Lets pull the jenkins image with latest version__
+
+![preview](images/55.png)
+* __Lets find the alpine and pull the image__
+![preview](images/56.png)
+
+## Remove images from local
+
+* Every image will have unique image id and image name
+* We can delete individually `docker image rm alpine:3.19.1` 
+* if i have to delete all the images `docker image rm $(docker image ls -q)`
+* ![preview](images/57.png)
+* ![preview](images/58.png)
+
+## Create a container with nginx
+
+* To create and start the container we use run command
+* ![preview](images/59.png)
+* note: i will be using -d for some time and we will discuss importance of this in next session
+* every container gets an id and a name. name can be passed while creating container, if not docker will give random name.
+* ![preview](images/60.png)
+
+* ## Remove all the running containers
+* `docker container rm -f $(docker container ls -q)`
+* ![preview](images/61.png)
+
+* ## Remove specific container
+* ![preview](images/62.png)
+
+* ## How to start a Docker container 
+
+* To run a simple container based on the Ubuntu image we just pulled, run the command below: 
+* ![preview](images/63.png)
+* `docker run -it ubuntu /bin/bash`
+
+* After running the container, you’ll be inside the container’s shell (in this example, a Bash shell). You can interact with it just like a regular Linux system.
+* When you’re done, you can exit the container by typing exit.
+* Let’s take a look at the command options for docker run.
+* This command is used to start a container, and the syntax looks like this:
+* `docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...] `
+* The IMAGE we used was ubuntu , the `-it` OPTIONS we specified make the container interactive and allocate a terminal. The COMMAND we supplied was the command to run inside the terminal of the running container.
+* refer: https://docs.docker.com/engine/reference/run/
+* start and stop containers `docker start 4d3dfee4a8e6/nginx1 or stop docker stop 4d3dfee4a8e4/nginx2`
+* ![preview](images/64.png)
+* ![preview](images/65.png)
+
+##
