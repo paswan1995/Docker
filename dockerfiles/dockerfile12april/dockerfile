@@ -15,3 +15,24 @@ LABEL organization="qt"
 ADD https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar /spring-petclinic-2.4.2.jar
 EXPOSE 8080
 CMD ["java", "-jar", "/spring-petclinic-2.4.2.jar"] 
+
+### now copy
+
+FROM amazoncorretto:11
+LABEL author="anil"
+LABEL docker="learning"
+LABEL organization="qt"
+COPY /spring-petclinic-2.4.2.jar /spring-petclinic-2.4.2.jar
+EXPOSE 8080
+CMD ["java", "-jar", "/spring-petclinic-2.4.2.jar"]
+
+### sleep 
+
+FROM amazoncorretto:11
+LABEL author="anil"
+LABEL organization="qt"
+LABEL docker="learning"
+# Copy from local file on Docker host into docker image
+COPY spring-petclinic-2.4.2.jar  /spring-petclinic-2.4.2.jar
+EXPOSE 8080
+CMD ["sleep", "10s"]
