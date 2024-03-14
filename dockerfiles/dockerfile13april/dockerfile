@@ -22,4 +22,57 @@ EXPOSE 5000
 ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
 CMD [ "dotnet", "Nop.Web.dll" ]
 
-### 
+### ARG 
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 
+LABEL author="anil" learning="docker" organization="qt"
+ARG DOWNLOAD_URL=https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.6/nopCommerce_4.60.6_NoSource_linux_x64.zip
+ARG HOME_DIR=/nop 
+ADD ${DOWNLOAD_URL} ${HOME_DIR}/nopCommerce_4.60.6_NoSource_linux_x64.zip 
+WORKDIR ${HOME_DIR}
+RUN apt update && apt install unzip -y && \ 
+    unzip ${HOME_DIR}/nopCommerce_4.60.6_NoSource_linux_x64.zip && \
+    mkdir ${HOME_DIR}/bin && mkdir ${HOME_DIR}/logs 
+EXPOSE 5000
+ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
+CMD ["dotnet", "Nop.Web.dll"]
+
+## or Adding ENV `ENV TEST="default"`
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 
+LABEL author="anil" learning="docker" organization="qt"
+ARG DOWNLOAD_URL=https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.6/nopCommerce_4.60.6_NoSource_linux_x64.zip
+ARG HOME_DIR=/nop 
+ADD ${DOWNLOAD_URL} ${HOME_DIR}/nopCommerce_4.60.6_NoSource_linux_x64.zip 
+WORKDIR ${HOME_DIR}
+RUN apt update && apt install unzip -y && \ 
+    unzip ${HOME_DIR}/nopCommerce_4.60.6_NoSource_linux_x64.zip && \
+    mkdir ${HOME_DIR}/bin && mkdir ${HOME_DIR}/logs 
+ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
+ENV TEST="default"
+EXPOSE 5000
+CMD ["dotnet", "Nop.Web.dll"]
+
+## USER 
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0
+LABEL author="anil" learning="docker" organization="qt"
+ARG user=nopCommerce
+ARG group=nopCommerce
+ARG uid=1000
+ARG gid=1000
+ARG DOWNLOAD_URL=https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.6/nopCommerce_4.60.6_NoSource_linux_x64.zip
+ARG HOME_DIR=/nop
+RUN apt update && apt install unzip -y    
+## Create user nopcommerce
+RUN groupadd -g ${gid} ${group} \
+    && useradd -d "$HOME_DIR" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+USER ${user}
+WORKDIR ${HOME_DIR}
+ADD --chown=${user}:${group} ${DOWNLOAD_URL} ${HOME_DIR}/nopCommerce_4.60.6_NoSource_linux_x64.zip
+RUN unzip ${HOME_DIR}/nopCommerce_4.60.6_NoSource_linux_x64.zip && \
+    mkdir ${HOME_DIR}/bin && mkdir ${HOME_DIR}/logs
+EXPOSE 5000
+ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
+CMD ["dotnet" , "Nop.Web.dll"]
+
