@@ -1,0 +1,5 @@
+### exp1
+
+FROM alpine
+LABEL author="anil"
+CMD [ "sleep", "1d" ]
