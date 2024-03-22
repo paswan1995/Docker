@@ -25,6 +25,8 @@ $ docker container exec -it mysqldb mysql --password=rootroot
 
 ```
  use players;
+```
+```
  CREATE TABLE Persons (
     ->     PersonID int,
     ->     LastName varchar(255),
@@ -36,9 +38,13 @@ $ docker container exec -it mysqldb mysql --password=rootroot
 ```
 ```
 Insert into Persons values (1, 'anil','anil','anil','anil');
-select * from Persons;
+```
+there is no need insert data again if you have already created volume i.e: -->  Insert into Persons values (1, 'anil','anil','anil','anil');
 
 ```
+Select * from Persons;
+```
+
 
 
 
