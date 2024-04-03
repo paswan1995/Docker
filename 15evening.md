@@ -1,5 +1,13 @@
 ## Docker Volume contd..
 
+## to delete the images or container multiple time use `alias` or `bash`
+## set alias for delete or any thing
+```
+alias delcontainer=`docker container rm -f $(docker container ls -a -q)`
+```
+![preview](images/184.png)
+* you can store these `alias` in `/bashrc` so you can reuse
+* 
 * __Persisting Data using Volumes__
 
 * Lets create an explicit volume for mysqldb
@@ -53,6 +61,7 @@ Select * from Persons;
 * Login into container and create some data
 ![preview](images/168.png)
 * check the content in /tmp of docker host
+* `docker container logs mysqldb` for checking why its failing
 
 ## Creating volume as part of Dockerfile
 
@@ -74,7 +83,7 @@ COPY spring-petclinic-2.4.2.jar  /spring-petclinic-2.4.2.jar
 EXPOSE 8080
 CMD ["sleep", "10s"]
 ```
-* Gameoflife:
+* ## Gameoflife:
 
 ```
 FROM tomcat:9-jdk8
@@ -88,6 +97,23 @@ EXPOSE 8080
 * for the changeset with volume instruction for gameoflife container
 * ![preview](images/169.png)
 * ## Shell file to clean everything
+* ## to delete the images or container multiple time use `alias` or `bash`
+## set alias for delete or any thing
+```
+alias delcontainer=`docker container rm -f $(docker container ls -a -q)`
+```
+![preview](images/184.png)
+* you can store these `alias` in `/bashrc` so you can reuse
+* you can set `alias` like this you dont need to type always long commands
+```
+$ alias delcontainer=`docker container rm -f $(docker container ls -a -q)`
+$ alias prunvol='docker volume prune'
+$ prunvol
+$ alias delimages='docker image rm -f $(docker image ls -a -q)'
+$ delimages
+```
+![preview](images/185.png)
+
 * Create a shell file with following content
 
 ```
@@ -101,13 +127,31 @@ docker image rm -f $(docker image ls -q)
 
 * ## Entrypoint and CMD
 * Lets create two docker images
-* First
+* ## First
+vi first 
 ```
 FROM alpine
 CMD ["sleep", "1d"]
 ```
+![preview](images/182.png)
+`$ docker container run first ping -c 4 google.com`
 
+* ## second 
+* vi second
+```
+FROM alpine
+ENTRYPOINT ["sleep"]
+CMD ["1d"]
+```
+```
+ docker image build -t second -f second .
+ docker container run second ping c 4 google.com
+ docker container run second 5s
+ docker container run --entrypoint ping second -c 4 google.com
+```
+![preview](images/183.png)
 
+## ENTRYPOINT VS CMD =? 
 
 * ## Experiment
 * Create a alpine container with the following names
@@ -216,6 +260,7 @@ Image from Docker
 * ## User-Defined Bridge Networks
 ![preview](images/181.png)
 * note: All the images are picked from Docker Documentations 
+
 * (2) Docker has multiple network driver implementations 
      * bridge
      * host
@@ -225,4 +270,51 @@ Image from Docker
      * Default bridge will not have dns enabled (this is why in the above experiment C1 was not able to ping C2 by name)
      *  Create a container C1 in default network `docker container run -d --name C1 alpine sleep 1d` 
      *  inspect default bridge network `docker network inspect bridge`
- 
+     *  ![preview](images/186.png)
+*  Lets create a new bridge network
+*  ` docker network create -d bridge --subnet "10.0.0.0/24" my_bridge`
+*  ![preview](images/187.png)
+*  Now create two contianers C2 and C3 in my_bridge network
+```
+docker container run -d --name c2 --network my_bridge alpine sleep 1d
+docker container run -d --name c3 --network my_bridge alpine sleep 1d
+```
+*  ![preview](images/188.png)
+*  Inspect my_bridge network
+*  `docker network inspect my_bridge`
+![preview](images/189.png)
+* Lets try ping from c2 to c3 by name
+```
+docker container exec c2 ping -c 2 c3
+docker container exec c2 ping -c 2 10.0.0.3 
+```
+![preview](images/190.png)
+
+* __once the container is created you can't mount volumes__
+* __mounting value happens during container creation not post container creation.__ 
+
+* ## Lets create a mysql container in my_bridge network
+` docker container run -d --name mysqldb -v mysqldb:/var/lib/mysql -P -e MYSQL_ROOT_PASSWORD=rootroot -e MYSQL_DATABASE=employees -e MYSQL_USER=qtdockerdevops -e MYSQL_PASSWORD=rootroot --network my_bridge mysql`
+![preview](images/191.png)
+![preview](images/192.png)
+* Lets run phpmyadmin
+`docker container run --name phpmyadmin --network my_bridge -d -e PMA_HOST=mysqldb -P phpmyadmin`
+* `docker container ls`
+![preview](images/193.png)
+![preview](images/195.png)
+![preview](images/194.png)
+![preview](images/196.png)
+* ## Connect container C1 to my_bridge network
+![preview](images/197.png)
+![preview](images/198.png)
+![preview](images/199.png)
+
+```
+docker container exec C1 ip addr
+docker network connect my_bridge C1
+docker container exec C1 ip addr
+docker network disconnect bridge C1
+docker container exec C1 ip addr
+```
+
+-------------------------------------------------------------------------------------------------------------------
