@@ -164,7 +164,50 @@ docker volume prune
 * Create an ECR (Amazon Elastic Container Registry) Repository
 ![preview](images/213.png)
 ![preview](images/214.png)
+* view push commands now
+![preview](images/219.png)
+![preview](images/220.png)
+* now create aws (amazon linux 2 instance) and connect with your terminal and install `docker` for Amazon Linux 2
+![preview](images/221.png)
 
+```
+sudo yum update -y
+sudo amazon-linux-extras install docker
+sudo service docker start
+## Add the ec2-user to the docker group so that you can run Docker commands without using sudo
+sudo usermod -a -G docker ec2-user
+## after giving the permission of user you have logout once and relogin
+docker info
+docker ps
 
- 
+```
+refer here for link : https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html
+![preview](images/222.png) 
 
+* install and configure aws cli
+* before to configure aws cli we have to create `IAM ` user  
+* refer: https://sst.dev/chapters/create-an-iam-user.html 
+* to set or configure aws configure/set =  `cvi ~/.aws/credentails`
+* to view your aws cerdentials type on terminal= notepad "C:\Users\Red Fire\Downloads\dockerhub-user_accessKeys.csv" 
+  
+![preview](images/223.png)
+![preview](images/224.png)
+![preview](images/225.png)
+![preview](images/226.png)
+![preview](images/227.png)
+![preview](images/228.png)
+![preview](images/229.png)
+![preview](images/230.png)
+![preview](images/231.png)
+![preview](images/232.png)
+![preview](images/233.png)
+![preview](images/234.png)
+![preview](images/235.png)
+![preview](images/236.png)
+* Last image of  prictical on terminal
+![preview](images/223.png)
+* finally we are able to push docker image from docker hub to ECR(Amazon Elastic Container Registry)
+![preview](images/237.png)
+
+* ## Azure ACR 
+* Refer Here for detailed information: https://learn.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-prepare-acr  
