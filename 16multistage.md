@@ -76,7 +76,8 @@ EXPOSE 5000
 ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
 CMD [ "dotnet", "Nop.Web.dll"]
 ```
-* ## Linux commands : https://www.sanfoundry.com/1000-linux-command-tutorials/
+* ## Linux commands : https://www.sanfoundry.com/1000-linux-command-tutorials/ or 
+* permission on linux : https://www.geeksforgeeks.org/permissions-in-linux/
 
 * ## Scenario -2 Game of life
 * code: https://github.com/wakaleo/game-of-life
@@ -108,34 +109,62 @@ EXPOSE 8080
 * Create a public Repository
 ![preview](images)
 * Repository will be in the form of <username>/<repo-name>:<tag>
-![preview](images)
+![preview](images/205.png)
+![preview](images/206.png)
 * After building the image tag the image to new naming format
-`docker image tag spc:3.0.0 shaikhajaibrahim/qtspringpetclinic:3.0.0`
-![preview](images)
+`docker image tag spc:1.0 redfiree/spcbuildmvn:1.0`
+![preview](images/208.png)
 * if this image has to be default also tag with latest (optional)
-* `docker image tag spc:3.0.0 shaikhajaibrahim/qtspringpetclinic:latest`
+* `docker image tag spc:1.0 redfiree/spcbuildmvn:latest`
 * ![preview](images)
 * login into docker hub from cli
 * `docker login`
-* ![preview](images)
+* ![preview](images/210.png)
 * lets push the images
+  ![preview](images/216.png)
+  ![preview](images/217.png)
+* latest or specific tag 
+  ![preview](images/211.png)
+  ![preview](images/212.png)
+
+* ## to pull the repository 
+* `docker container run -d -P redfiree/spcbuildmvn`
+![preview](images/215.png)
 
  ## deleting containers,images,volume and files
-
-* vi files 
+* vi alias.sh
 ```
 #!/bin/bash
 alias delcontainer=`docker container rm -f $(docker container ls -a -q)'
+## use command `delcontainer` 
 alias prunvol='docker volume prune'
+## use command `prunvol`
 alias delimages='docker image rm -f $(docker image ls -a -q)'
-
+## use command `delimages`
 ```
+
 * or use 
   
-* vi deletecommands
+* vi deletecommands.sh
+  
 ```
 #!/bin/bash
 docker container rm -f $(docker container ls -a -q)
 docker image rm -f $(docker image ls -a -q)
 docker volume prune
 ```
+## Private Registries
+* There are many applciations for hosting private registries
+      * AWS: ECR (Elastic container registry)
+      * Azure: ACR (Azure Container Registry)
+      * Jfrog
+  
+* ## AWS ECR
+
+* Create an ECR (Amazon Elastic Container Registry) Repository
+![preview](images/213.png)
+![preview](images/214.png)
+
+
+ 
+
