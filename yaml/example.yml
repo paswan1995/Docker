@@ -1,0 +1,26 @@
+---
+name: Anil Paswan
+Mobile: 5555555555555555
+Age: 29
+email: ap@gmail.com
+education:
+  Qualification:
+    Graduate:
+      university: rtmnu
+      faculty: bca 
+      year of passing: 2020
+      grade: b
+
+---
+name: Anil
+Mobile: 555666190
+email: pp@gmail.com
+education:
+  - bca
+      year of passing:
+      grade:
+      university:
+  - mca
+      year of passing:
+      grade:
+      university: 

@@ -36,3 +36,18 @@ LABEL docker="learning"
 COPY spring-petclinic-2.4.2.jar  /spring-petclinic-2.4.2.jar
 EXPOSE 8080
 CMD ["sleep", "10s"]
+
+---
+
+
+--------------------------------------------------------------------------------------------------
+
+
+FROM mcr.microsoft.com/dotnet/runtime:7.0
+LABEL author="anil" organization="qt" learning="devops"
+ARG user=nopcommerce
+ARG group=nopcommerce
+ARG uid=1000
+ARG gid=1000
+ARG ARG DOWNLOAD_URL=https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.2/nopCommerce_4.60.2_NoSource_linux_x64.zip
+ARG 
