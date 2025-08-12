@@ -1,6 +1,6 @@
 # Docker Lifecycle Explanation 
 
-![](Images/287.png)
+![preview](images/66.png)
 
 
 ***Docker container lifecycle diagram.***
