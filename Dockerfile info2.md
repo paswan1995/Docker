@@ -1,6 +1,6 @@
 # DockerFile 
 
-![](Images/288.png)
+![preview](images/288.png)
 
 
 ***Quick overview (one-line)***
